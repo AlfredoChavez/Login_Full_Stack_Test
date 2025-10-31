@@ -18,6 +18,65 @@ async function authenticateTest () {
 };
 authenticateTest();
 
+const Users = sequelize.define(
+  'Users',
+  {
+    userName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+  },
+  {
+    sequelize,
+    modelName: 'Users',
+    freezeTableName: true,
+    timestamps: false,
+  },
+);
 
+const userData = sequelize.define(
+  'userData',
+  {
+    //TODO Check UUID approach to sync this value with the id from the Users model?
+    userId: {
+      type: DataTypes.BIGINT,
+      allowNull: false,
+    },
+    data: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+  },
+  {
+    sequelize,
+    modelName: 'userData',
+    freezeTableName: true,
+    updatedAt: false,
+  },
+);
 
-module.exports= sequelize;
+async function userSync () {
+  try {
+    await Users.sync();
+    console.log('Users have been sync 👥');
+  } catch (error) {
+    console.error('Unable to sync users with the database:', error);
+  }
+};
+userSync();
+
+async function dataSync () {
+  try {
+    await userData.sync();
+    console.log('Data has been sync 💿');
+  } catch (error) {
+    console.error('Unable to sync data with the database:', error);
+  }
+};
+dataSync();
+
+module.exports= {Users, userData};
