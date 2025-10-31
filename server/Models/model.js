@@ -79,4 +79,38 @@ async function dataSync () {
 };
 dataSync();
 
-module.exports= {Users, userData};
+async function selectUser(userName, password) {
+  try {
+    const user = await Users.findAll({
+      where: {
+        userName: userName,
+        password: password,
+      }
+    });
+
+    return user;
+
+  } catch (error) {
+    console.error('🚨'+error);
+  }
+};
+
+async function selectData(id) {
+  try {
+    const data = await userData.findAll({
+      where: {
+        userId: id,
+      }
+    });
+  } catch (error) {
+    console.error('🚨'+error);
+  }
+};
+
+//* Create dummy users for testing
+// (async () => {
+//   const Miguel = await Users.create({ userName: 'Miguel', password: '5678' });
+//   console.log(`Creado ${Miguel}`);
+// })();
+
+module.exports= {selectUser, selectData};
