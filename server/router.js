@@ -8,6 +8,6 @@ router.get('/', (req, res) => {
   res.send('👌');
 });
 
-
+router.get('/user', controller.getUser);
 
 module.exports = router;
