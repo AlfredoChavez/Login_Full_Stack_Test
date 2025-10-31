@@ -3,7 +3,7 @@
 const {Sequelize, DataTypes} = require('sequelize');
 
 //! Use your own username
-const dbUser = 'digitalsystems';
+const dbUser = 'postgres';
 
 const sequelize = new Sequelize(`postgres://${dbUser}:null:@localhost:5432/AuthenticationTest_db`, {logging: false});
 
