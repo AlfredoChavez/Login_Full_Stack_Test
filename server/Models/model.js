@@ -24,6 +24,7 @@ const Users = sequelize.define(
     userName: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
     },
     password: {
       type: DataTypes.STRING,
@@ -61,6 +62,8 @@ const userData = sequelize.define(
 
 async function userSync () {
   try {
+    // await Users.sync({alter: true});
+    // await Users.sync({force: true});
     await Users.sync();
     console.log('Users have been sync 👥');
   } catch (error) {
@@ -109,7 +112,7 @@ async function selectData(id) {
 
 //* Create dummy users for testing
 // (async () => {
-//   const Miguel = await Users.create({ userName: 'Miguel', password: '5678' });
+//   const Miguel = await Users.create({ userName: 'Miguel', password: '9012' });
 //   console.log(`Creado ${Miguel}`);
 // })();
 
