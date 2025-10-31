@@ -5,7 +5,7 @@ const {Sequelize, DataTypes} = require('sequelize');
 //! Use your own username
 const dbUser = 'postgres';
 
-const sequelize = new Sequelize(`postgres://${dbUser}:null:@localhost:5432/AuthenticationTest_db`, {logging: false});
+const sequelize = new Sequelize(`postgres://${dbUser}:1234@localhost:5432/AuthenticationTest_db`, {logging: false});
 
 //* Test the connection
 async function authenticateTest () {
@@ -105,6 +105,9 @@ async function selectData(id) {
         userId: id,
       }
     });
+
+    return data;
+    
   } catch (error) {
     console.error('🚨'+error);
   }
@@ -115,5 +118,20 @@ async function selectData(id) {
 //   const Miguel = await Users.create({ userName: 'Miguel', password: '9012' });
 //   console.log(`Creado ${Miguel}`);
 // })();
+//! this is a request JSON from POSTMAN
+// {
+//   "userName": "Miguel",
+//   "password": "9012"
+// }
+
+//* Create dummy data for testing
+// (async () => {
+//   const Data = await userData.create({ userId: '1', data: 'This is a test 2 from data' });
+//   console.log(`Creado ${Data}`);
+// })();
+//! this is a request JSON from POSTMAN
+// {
+//   "userId": "1"
+// }
 
 module.exports= {selectUser, selectData};

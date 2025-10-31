@@ -8,6 +8,7 @@ router.get('/', (req, res) => {
   res.send('👌');
 });
 
-router.get('/user', controller.getUser);
+router.get('/user/:userName/:password', controller.getUser);
+router.get('/data', controller.getData);
 
 module.exports = router;
