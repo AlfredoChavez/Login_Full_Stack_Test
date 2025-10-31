@@ -25,8 +25,11 @@ async function getUser (req, res) {
 
 async function getData (req, res) {
   try {
-    if (Object.keys(req.body).length === 0 || !req.body) res.status(400).json('Req id is empty');
-    const reqId = req.body.userId;
+    
+    if (Object.keys(req.params).length===0 || !req.params) res.status(400).json('Req Body is empty');
+
+    const reqId = req.params.id;
+    
     const data = await Model.selectData(reqId);
 
     if(!data[0] || data.length===0) {

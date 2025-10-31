@@ -14,9 +14,11 @@ export default function LoginPage() {
     setError("");
     try {
       const userId = await AuthService.login(user, password);
-      console.log(typeof userId);
+      
       if (userId instanceof Error) throw('Invalid user/password');
+
       navigate(`/user/${userId}/${user}`);
+
     } catch (error) {
       console.log(error);
       setError(error, "Credenciales incorrectas o error de conexión.");
