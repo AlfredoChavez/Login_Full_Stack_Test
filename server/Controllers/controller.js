@@ -2,15 +2,20 @@ const Model = require('../Models/model');
 
 async function getUser (req, res) {
   try {
-    if (Object.keys(req.body).length===0) res.status(400).json('Req Body is empty');
 
-    const reqUser = req.body.userName;
-    const reqPass = req.body.password;
+    if (Object.keys(req.params).length===0 || !req.params) res.status(400).json('Req Body is empty');
+
+    const reqUser = req.params.userName;
+    const reqPass = req.params.password;
+
     const user = await Model.selectUser(reqUser, reqPass);
 
-    if(!user || user.length===0) res.status(400).json('Invalid User/Password');
+    if(!user[0] || user.length === 0) {
+      res.status(400).json('Invalid User/Password');
+    } else {
+      res.status(202).json(user[0].id);
+    };
 
-    res.status(202).json(user[0].id);
 
   } catch (error) {
     console.error(error);
@@ -18,5 +23,22 @@ async function getUser (req, res) {
 }
 
 
+async function getData (req, res) {
+  try {
+    if (Object.keys(req.body).length === 0 || !req.body) res.status(400).json('Req id is empty');
+    const reqId = req.body.userId;
+    const data = await Model.selectData(reqId);
 
-module.exports = {getUser}
+    if(!data[0] || data.length===0) {
+      res.status(400).json('No data');
+    } else {
+      res.status(202).json(data);
+    }
+
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+
+module.exports = {getUser, getData}
