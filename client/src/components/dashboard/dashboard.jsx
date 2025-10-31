@@ -10,6 +10,7 @@ export default function DashBoard (){
     (async () => {
       const newData = await getData(userId);
       setData(newData);
+      console.log('userId');
     })();
   },[userId]);
 

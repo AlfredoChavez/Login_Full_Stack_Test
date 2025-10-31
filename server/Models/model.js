@@ -3,9 +3,9 @@
 const {Sequelize, DataTypes} = require('sequelize');
 
 //! Use your own username
-const dbUser = 'postgres';
+const dbUser = 'digitalsystems';
 
-const sequelize = new Sequelize(`postgres://${dbUser}:1234@localhost:5432/AuthenticationTest_db`, {logging: false});
+const sequelize = new Sequelize(`postgres://${dbUser}:@localhost:5432/AuthenticationTest_db`, {logging: false});
 
 //* Test the connection
 async function authenticateTest () {
@@ -107,7 +107,7 @@ async function selectData(id) {
     });
 
     return data;
-    
+
   } catch (error) {
     console.error('🚨'+error);
   }

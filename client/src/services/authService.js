@@ -12,10 +12,12 @@ export async function login (user, password) {
 }
 
 export async function getData (id) {
+
   try {
     const response = await fetch(`http://localhost:3000/data/${id}`);
     if (!response.ok) throw(response.status);
     const data = await response.json();
+    console.log('data');
     return data;
   } catch (error) {
     console.log(error);
